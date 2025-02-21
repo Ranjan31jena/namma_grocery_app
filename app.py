@@ -90,14 +90,3 @@ if 'logged_in' in st.session_state and st.session_state['logged_in']:
         for item in cart:
             st.write(f"{item['name']} x {item['quantity']} = ₹{item['price'] * item['quantity']}")
         st.subheader(f"Total: ₹{total}")
-
-        st.header("🚚 Delivery Options")
-        address = st.text_area("Enter Delivery Address")
-        delivery_time = st.selectbox("Choose Delivery Slot", ["Morning", "Afternoon", "Evening"])
-        st.write(f"Delivering to: {address}")
-        st.write(f"Delivery Slot: {delivery_time}")
-
-        st.header("💳 Payment")
-        payment_method = st.radio("Choose Payment Method", ["Credit Card", "Debit Card", "UPI", "Cash on Delivery"])
-        if st.button("Pay Now"):
-            st.success(f"Payment of ₹{total} done successfully via {payment_method}")
