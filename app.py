@@ -44,11 +44,28 @@ def delivery_options():
     st.write(f"Delivering to: {address}")
     st.write(f"Delivery Slot: {delivery_time}")
 
-# Store data with 20 items per shop
+# List of grocery items
+grocery_items = [
+    "Rice", "Wheat Flour", "Pulses", "Sugar", "Salt", "Spices", "Oils", "Dairy Products",
+    "Snacks", "Sweets", "Dry Goods", "Canned Goods", "Bread", "Pastries", "Soft Drinks", "Juices", "Coffee",
+    "Household Essentials", "Cleaning Supplies", "Detergents", "Paper Products", "Toiletries",
+    "Dishwashing Soaps", "Dishwashing Powders", "Dishwashing Liquids", "Toilet Cleaner", "Floor Cleaner", "Kitchen Cleaner",
+    "Shampoo", "Soap", "Toothpaste", "Toothbrush", "Bathing Soap", "Hair Conditioner", "Face Powder",
+    "Pooja Items", "Matchbox", "Deepa Oil", "Cotton Thread", "Camphor", "Incense Sticks", "Dhoop",
+    "Rock Candy", "Dry Grapes", "Medicines/Bandages", "Frozen Foods", "Packaged Foods"
+]
+
+# Store data with prices
 stores = {
-    "Fresh Mart": [{"name": f"Fresh Item {i}", "price": 20 + i} for i in range(1, 21)],
-    "Organic Shop": [{"name": f"Organic Item {i}", "price": 30 + i} for i in range(1, 21)],
-    "Daily Needs": [{"name": f"Daily Item {i}", "price": 25 + i} for i in range(1, 21)]
+    "Shree Matha Food Bazaar": [{"name": item, "price": 20 + i*2} for i, item in enumerate(grocery_items)],
+    "Krishna Supermarket": [{"name": item, "price": 22 + i*2} for i, item in enumerate(grocery_items)],
+    "MTL Mart": [{"name": item, "price": 18 + i*2} for i, item in enumerate(grocery_items)],
+    "Palrecha General Stores": [{"name": item, "price": 21 + i*2} for i, item in enumerate(grocery_items)],
+    "S Nagaraj Setty Kirani Stores": [{"name": item, "price": 19 + i*2} for i, item in enumerate(grocery_items)],
+    "Prabhu Kirani": [{"name": item, "price": 23 + i*2} for i, item in enumerate(grocery_items)],
+    "Darshan Provisional Store": [{"name": item, "price": 17 + i*2} for i, item in enumerate(grocery_items)],
+    "Kavali Entrepreneurs": [{"name": item, "price": 24 + i*2} for i, item in enumerate(grocery_items)],
+    "Rajasthan Stores": [{"name": item, "price": 20 + i*2} for i, item in enumerate(grocery_items)]
 }
 
 # User authentication
