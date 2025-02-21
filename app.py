@@ -3,6 +3,8 @@ import streamlit as st
 # Initialize user database
 if 'users' not in st.session_state:
     st.session_state['users'] = {}
+if 'user_data' not in st.session_state:
+    st.session_state['user_data'] = {}
 
 # User login/register functionality
 def user_auth():
@@ -17,6 +19,7 @@ def user_auth():
                 st.sidebar.warning("Username already exists!")
             else:
                 st.session_state['users'][user] = pwd
+                st.session_state['user_data'][user] = {"orders": []}
                 st.sidebar.success("Registered successfully!")
 
     elif auth_option == "Login":
@@ -26,15 +29,17 @@ def user_auth():
             if user in st.session_state['users'] and st.session_state['users'][user] == pwd:
                 st.sidebar.success(f"Logged in as {user}")
                 st.session_state['logged_in'] = True
+                st.session_state['current_user'] = user
             else:
                 st.sidebar.error("Invalid username/password")
 
 # Payment method options
-def payment_section(total):
+def payment_section(total, cart):
     st.header("💳 Payment")
     payment_method = st.radio("Choose Payment Method", ["Credit Card", "Debit Card", "UPI", "Cash on Delivery"])
     if st.button("Pay Now"):
         st.success(f"Payment of ₹{total} done successfully via {payment_method}")
+        st.session_state['user_data'][st.session_state['current_user']]["orders"].append({"cart": cart, "total": total, "payment_method": payment_method})
 
 # Delivery options
 def delivery_options():
@@ -102,4 +107,4 @@ if 'logged_in' in st.session_state and st.session_state['logged_in']:
         delivery_options()
 
         # Payment section
-        payment_section(total)
+        payment_section(total, cart)
