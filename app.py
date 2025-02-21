@@ -7,6 +7,53 @@ if 'user_data' not in st.session_state:
     st.session_state['user_data'] = {}
 
 # User login/register functionality
+import streamlit as st
+import pyrebase
+
+# Firebase configuration (Replace these with your Firebase project details)
+firebaseConfig = {
+    "apiKey": "YOUR_API_KEY",
+    "authDomain": "YOUR_AUTH_DOMAIN",
+    "databaseURL": "",
+    "projectId": "",
+    "storageBucket": "",
+    "messagingSenderId": "",
+    "appId": ""
+}
+
+# Initialize Firebase
+firebase = pyrebase.initialize_app(firebaseConfig)
+auth = firebase.auth()
+
+# User authentication function
+def user_auth():
+    st.sidebar.header("User Authentication")
+    choice = st.sidebar.selectbox('Login/Register', ['Login', 'Register'])
+
+    email = st.sidebar.text_input('Email')
+    password = st.sidebar.text_input('Password', type='password')
+
+    if choice == 'Register':
+        if st.sidebar.button('Register'):
+            try:
+                user = auth.create_user_with_email_and_password(email, password)
+                st.sidebar.success('Account created successfully!')
+            except Exception as e:
+                st.sidebar.error('Registration failed: ' + str(e))
+                
+    elif choice == 'Login':
+        if st.sidebar.button('Login'):
+            try:
+                user = auth.sign_in_with_email_and_password(email, password)
+                st.sidebar.success('Logged in as {}'.format(email))
+                st.session_state['logged_in'] = True
+                st.session_state['current_user'] = email
+            except Exception as e:
+                st.sidebar.error('Login failed: ' + str(e))
+
+# Call the function
+user_auth()
+
 def user_auth():
     st.sidebar.header("User Authentication")
     auth_option = st.sidebar.radio("Choose an option", ["Login", "Register"])
